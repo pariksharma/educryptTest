@@ -146,12 +146,12 @@ const MQTTLivePollOptions = ({poll, index, renderCountdown, video_id, pollSocket
     }
 
     useEffect(() => {
-      if(renderCountdown(poll?.valid_till) == "Expired" && answerSelect) {
+      if(renderCountdown(poll?.valid_till) == "Expired") {
         setTimeout(() => {
           getPollResult()
         }, 2000);
       }
-    }, [renderCountdown(poll?.valid_till)])
+    }, [renderCountdown(poll?.valid_till), poll])
 
 
     const getPollResult = async () => {
@@ -182,8 +182,11 @@ const MQTTLivePollOptions = ({poll, index, renderCountdown, video_id, pollSocket
   
         const getResult = await response.text(); // or response.json() if expecting JSON
         const selectiveAnswer = JSON.parse(getResult)
-        console.log('getResult ', JSON.parse(getResult));
-        setSelectAnswer(selectiveAnswer?.data?.message)
+        console.log('getResult ', selectiveAnswer?.message);
+        if(selectiveAnswer?.message == "Poll List") {
+          setSelectAnswer(selectiveAnswer?.data?.message)
+          
+        }
       } catch (error) {
         return `Error: ${error.message}`;
       }

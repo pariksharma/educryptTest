@@ -206,8 +206,8 @@ body {
   --size-99: 99px;
   --size-100: 100px;
 
-  /* --btnDeafult: #ff7246; */
-  --btnDeafult: #212529;
+  --btnDeafult: var(--dynamic-color, #ff7246);
+  /* --btnDeafult: #212529; */
 }
 
 /* ======================== Font Sizes Ends ======================= */
